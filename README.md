@@ -40,7 +40,7 @@ Automatically reset the EEPROM when the data structure changes or the data gets 
 #define LCD_LANGUAGE it
 
 - EXTRA
-Rimuovi Oggetto
+Accendi Mesh
 Home e Hot End Alto
 altri..
 

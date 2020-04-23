@@ -2856,14 +2856,14 @@
   #define USER_SCRIPT_AUDIBLE_FEEDBACK
   //#define USER_SCRIPT_RETURN  // Return to status screen after a script
 
-  #define USER_DESC_1 "Rimuovi Stampa"
-  #define USER_GCODE_1 "M117 Rimozione in corso \n G91\n G1 Z10\n G90\n G28 X Y F4000\n G1 X110 Y220 F4000\n G1 Z2 F4000\nG1 X110 Y1 Z2 F2400"
+  //#define USER_DESC_1 "Rimuovi Stampa"
+  //#define USER_GCODE_1 "M117 Rimozione in corso \n G91\n G1 Z10\n G90\n G28 X Y F4000\n G1 X110 Y220 F4000\n G1 Z2 F4000\nG1 X110 Y1 Z2 F2400"
 
   #define USER_DESC_2 "Home & HotEnd Alto"
   #define USER_GCODE_2 "M117 Movimento in corso \nG28 F3000\nG1 X110 Y110 Z200 F4000"
 
-  //#define USER_DESC_3 "Spegni Ventole"
-  //#define USER_GCODE_3 ""
+  #define USER_DESC_3 "Accendi Mesh"
+  #define USER_GCODE_3 "M420 S1"
 
   //#define USER_DESC_4 "Preheat/Home"
   //#define USER_GCODE_4 "M140 S50\n M104 S200\n G28\n M0 Premere per partire...\n G29"
