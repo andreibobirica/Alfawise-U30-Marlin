@@ -1007,7 +1007,7 @@
 //#define LCD_SHOW_E_TOTAL
 
 #if ENABLED(SHOW_BOOTSCREEN)
-  #define BOOTSCREEN_TIMEOUT 4000        // (ms) Total Duration to display the boot screen(s)
+  #define BOOTSCREEN_TIMEOUT 1500       // (ms) Total Duration to display the boot screen(s)
 #endif
 
 #if HAS_GRAPHICAL_LCD && EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY)
@@ -1429,15 +1429,15 @@
 
 //
 // FSMC Graphical TFT
-//
+//Da modificare per colori diversi
 #if ENABLED(FSMC_GRAPHICAL_TFT)
   // see https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
   #define TFT_MARLINUI_COLOR COLOR_WHITE
   #define TFT_MARLINBG_COLOR COLOR_BLACK
-  #define TFT_DISABLED_COLOR 0x10A2 // almost black
-  #define TFT_BTCANCEL_COLOR COLOR_RED
-  #define TFT_BTARROWS_COLOR COLOR_WHITE
-  #define TFT_BTOKMENU_COLOR COLOR_BLUE
+  #define TFT_DISABLED_COLOR 0xF800 // RED
+  #define TFT_BTCANCEL_COLOR 0xB000 
+  #define TFT_BTARROWS_COLOR 0x3EA1
+  #define TFT_BTOKMENU_COLOR 0x001F
 #endif
 
 //
@@ -2851,25 +2851,25 @@
  */
 #define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
-  //#define CUSTOM_USER_MENU_TITLE "Custom Commands"
-  #define USER_SCRIPT_DONE "M117 User Script Done"
+  #define CUSTOM_USER_MENU_TITLE "Extra"
+  #define USER_SCRIPT_DONE "M117 Azione Eseguita! :)"
   #define USER_SCRIPT_AUDIBLE_FEEDBACK
   //#define USER_SCRIPT_RETURN  // Return to status screen after a script
 
-  #define USER_DESC_1 "Home & UBL Info"
-  #define USER_GCODE_1 "G28\nG29 W"
+  #define USER_DESC_1 "Rimuovi Stampa"
+  #define USER_GCODE_1 "M117 Rimozione in corso \n G91\n G1 Z10\n G90\n G28 X Y F4000\n G1 X110 Y220 F4000\n G1 Z2 F4000\nG1 X110 Y1 Z2 F2400"
 
-  #define USER_DESC_2 "Preheat for " PREHEAT_1_LABEL
-  #define USER_GCODE_2 "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
+  #define USER_DESC_2 "Home & HotEnd Alto"
+  #define USER_GCODE_2 "M117 Movimento in corso \nG28 F3000\nG1 X110 Y110 Z200 F4000"
 
-  #define USER_DESC_3 "Preheat for " PREHEAT_2_LABEL
-  #define USER_GCODE_3 "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
+  //#define USER_DESC_3 "Spegni Ventole"
+  //#define USER_GCODE_3 ""
 
-  #define USER_DESC_4 "Heat Bed/Home/Level"
-  #define USER_GCODE_4 "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nG29"
+  //#define USER_DESC_4 "Preheat/Home"
+  //#define USER_GCODE_4 "M140 S50\n M104 S200\n G28\n M0 Premere per partire...\n G29"
 
-  #define USER_DESC_5 "Home & Info"
-  #define USER_GCODE_5 "G28\nM503"
+  #define USER_DESC_5 "Home"
+  #define USER_GCODE_5 "G28"
 #endif
 
 /**
