@@ -129,8 +129,9 @@ CardReader::CardReader() {
   workDirDepth = 0;
   ZERO(workDirParents);
 
-  // Disable autostart until card is initialized
-  autostart_index = -1;
+  /**
+   * Abilitazione Autostart Appena la stampante è accesa, PRINT ON BOOTUP **/
+  autostart_index = 0;
 
   #if PIN_EXISTS(SDPOWER)
     OUT_WRITE(SDPOWER_PIN, HIGH); // Power the SD reader
