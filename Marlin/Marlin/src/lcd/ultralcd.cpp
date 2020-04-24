@@ -1488,6 +1488,9 @@ void MarlinUI::update() {
     extern bool wait_for_user, wait_for_heatup;
   #endif
 
+  /*
+    Funzione da prelevare per abortire la stampa
+  */
   void MarlinUI::abort_print() {
     #if ENABLED(SDSUPPORT)
       wait_for_heatup = wait_for_user = false;

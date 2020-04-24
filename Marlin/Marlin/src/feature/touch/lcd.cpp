@@ -128,6 +128,9 @@ void lcdBacklightOn() {
   #endif
 }
 
+/**
+ * Funzione che molto probabilmente spegne il display, molto utile
+ */
 void lcdBacklightOff() {
   #if PIN_EXISTS(LCD_BACKLIGHT)
     OUT_WRITE(LCD_BACKLIGHT_PIN, LOW);
