@@ -235,7 +235,7 @@ namespace Language_it {
   PROGMEM Language_Str MSG_MOVE_1MM                        = _UxGT("Muovi di 1mm");
   PROGMEM Language_Str MSG_MOVE_10MM                       = _UxGT("Muovi di 10mm");
   PROGMEM Language_Str MSG_SPEED                           = _UxGT("Velocità");
-  PROGMEM Language_Str MSG_BED_Z                           = _UxGT("Piatto Z");
+  PROGMEM Language_Str MSG_BED_Z                           = _UxGT("Offset Bed Z");
   PROGMEM Language_Str MSG_NOZZLE                          = _UxGT("Ugello");
   PROGMEM Language_Str MSG_NOZZLE_N                        = _UxGT("Ugello ~");
   PROGMEM Language_Str MSG_BED                             = _UxGT("Piatto");
@@ -310,8 +310,8 @@ namespace Language_it {
   PROGMEM Language_Str MSG_FILAMENT_DIAM_E                 = _UxGT("Diam. filo *");
   PROGMEM Language_Str MSG_FILAMENT_UNLOAD                 = _UxGT("Rimuovi mm");
   PROGMEM Language_Str MSG_FILAMENT_LOAD                   = _UxGT("Carica mm");
-  PROGMEM Language_Str MSG_ADVANCE_K                       = _UxGT("K Avanzamento");
-  PROGMEM Language_Str MSG_ADVANCE_K_E                     = _UxGT("K Avanzamento *");
+  PROGMEM Language_Str MSG_ADVANCE_K                       = _UxGT("K-factor");
+  PROGMEM Language_Str MSG_ADVANCE_K_E                     = _UxGT("K-factor *");
   PROGMEM Language_Str MSG_CONTRAST                        = _UxGT("Contrasto LCD");
   PROGMEM Language_Str MSG_STORE_EEPROM                    = _UxGT("Salva impostazioni");
   PROGMEM Language_Str MSG_LOAD_EEPROM                     = _UxGT("Carica impostazioni");
