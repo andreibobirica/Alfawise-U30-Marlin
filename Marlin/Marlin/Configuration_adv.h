@@ -1519,10 +1519,10 @@
  * See http://marlinfw.org/docs/features/lin_advance.html for full instructions.
  * Mention @Sebastianv650 on GitHub to alert the author of any issues.
  */
-#define LIN_ADVANCE
+//#define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
-  #define LIN_ADVANCE_K 0.5    // Unit: mm compression per 1mm/s extruder speed
+  #define LIN_ADVANCE_K 0.22    // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
 #endif
 
@@ -1911,7 +1911,7 @@
   #define PAUSE_PARK_NO_STEPPER_TIMEOUT           // Enable for XYZ steppers to stay powered on during filament change.
 
   //Credo da attivare per spostare estrusore durante pausa
-  #define PARK_HEAD_ON_PAUSE                    // Park the nozzle during pause and filament change.
+  //#define PARK_HEAD_ON_PAUSE                    // Park the nozzle during pause and filament change.
   //#define HOME_BEFORE_FILAMENT_CHANGE           // Ensure homing has been completed prior to parking for filament change
 
   #define FILAMENT_LOAD_UNLOAD_GCODES             // Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.
