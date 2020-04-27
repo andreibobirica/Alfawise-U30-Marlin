@@ -1,67 +1,38 @@
-Alfawise-U30-Marlin
+Link Download :
+https://bit.ly/2ScqIr8
 
-Only for NO-Bltouch
-Only for U30 Normal
-Only for LCD v1.2
+Condivido il firmware Marlin 2.0.5.3 per Alfawise U30 senza Bl-Touch.
+Ho compilato per tutte le combinazioni della U30, 0X04 e 0XD3 con rispettivamente per ciascuna due versioni di schermo: ver 1.2 oppure ver 1.1
+Dalla mia personale esperienza consiglio di provare prima I 0XD3 e prima i V1.2.
+In verità la U30 avrebbe anche una versione 1.9 ma è perfettamente compatibile con la 1.2;
 
-Marlin 2.0.5.3 per Alfawise U30 normale senza Bl-touch.
+Questa versione di Marlin per Alfawise U30 presenta:
+- MESH BED LEVELING 4x4 con menù per la modifica della mesh.
+Impostare nello StartGCODE M420 S1 dopo G28
+https://youtu.be/vcxM7-VK44k
+- Interfaccia State Modificata con durante la stampa : Time Remaining , Time Elapsed e al posto dei inutili X e Y la lunghezza di E in mm totalmente estrusa durante la stampa.
+- Lingua ITALIANA
+- Sezione Extra con comandi personalizzati e proponibili nei commenti.
+- EEPROM Salvataggio delle configurazioni nella memorai eeprom.
+- Custom Logo And Bootscreen Custom e Marlin Animato; Ho modificato alcuni degli elementi della UI, Colori, Status Image.
+- Risolto il problema del Zoffset e Max Exstrusion: Sfortunatamente nei firmware trovati in rete ci sono parametri impostati a caso che rendono difficoltosa se non impossibile il coretto utilizzo della stampante, come per esempio il livellamento del bed o il limite della Max Exstrusion, in questo firmware corretti.
+- Funzione Autostart, Stampa Automatica, questa funzione esiste già nativamente su marlin ma ha bisogno di un operatore umano per farla azionare, io l’ho modificata e ho reso la stampante più SMART.
+Ipotizziamo di avere una presa smart, impostargli un timer di accensione e automaticamente la stampante una volta accesa eseguirà in successione tutti i file autoX.g che trova, con X che parte da 0.
+Funzione molto utile e che se utilizzata bene aiuta ad ottimizzare i tempi.
+- Aggiunta di funzioni Interessanti come S_CURVE_ACCELERATION e il Linear Advance.
+Per il linear advance consiglio vivamente di fare il test e la configurazione seguendo questo video:
+La funzione di LIN_ADVANCE serve per migliorare la qualità di stampa ad alte velocità, e di sicuro qualcuno più esperto di me potrà ben doccumentarla nei commenti.
+https://youtu.be/n3yK0lJ8TWM
+https://marlinfw.org/tools/lin_advance/k-factor.html
 
-Le caratteristiche in più rispetto al firmware originale sono:
-- MESH BED LEVELING
-funzione che fa il bed leveling con una matrice di 9 punti con per ciascuna un Z-offset personalizzato.
-Importante impostare nello StartGCODE M420 S1 dopo G28
-info: https://www.youtube.com/watch?v=vcxM7-VK44k
-Ho Modifica Mesh da 3x3 a 4x4
+-	Ho impostato nel apposito menù la possibilità di regolare il PID direttamente dalla macchina.
+-	Ho impostato la funzione di Parking durante la pausa, ora le pause saranno gestite meglio.
 
-- TIME REMAINING  
-Mostra a schermo il tempo rimasto di stampa, sia in base a output precisi di Cura, che da altri Slicer con calcoli approssimati del tempo.
 
-- E mm Totali durante la stampa
-Ho tolto le coordinate XY durante la stampa, alquanto inutili, e ho abilitato i mm di E totali.
+Alcuni dei problemi principali sono stati
+Touch storto soluzione: individuare la reale posizione dei pulsanti -> Configurazione-> touchscreen -> calibrazione
+Errore nel flash del firmware, barre di caricamento troppo veloci: Provate un’altra versione, provate a tornare al firmware originale.
 
-- CUSTOM COMANDS EXTRA
-AVVIO Mesh e Vai Home e Hotend Alto
+Schermo bianco : provate un’altra versione di schermo.
 
-- EEPROM MEMORY
-Memorizzazione di tutti i config sulla scheda e non più sulla SD, questo implica che con l'aggiornamento del firmware in futuro le configurazioni restano invariate.
-
-- Custom Logo And Bootscreen Custom e Marlin Animato 
-Ho modificato alcuni degli elementi della UI, Colori, Status Image e ho aggiunto un Bootloader Animato.
-
-- Risolto il problema del Zoffset applicato in fase di Bed leveling Corner con:
-MESH_EDIT_Z_STEP  0.010
-LEVEL_CORNERS_HEIGHT      0.0
-LEVEL_CORNERS_Z_HOP       8.0
-
-- Ho impostato la EEPROM autoerasable in caso la memeoria sia corrotta o daneggiata in maniera tale da non avere problemi.
-tra un aggionrnamento firmware e con versioni molto diverse tra di loro piò capitare che la EEPROM si corrompa.
-#define EEPROM_AUTO_INIT
-Automatically reset the EEPROM when the data structure changes or the data gets corrupted.
-
-- Ho impostato La lingua ITALIANA
-#define LCD_LANGUAGE it
-
-- Modifica del Max Exstrusion
-
-- EXTRA
-Accendi Mesh
-Home e Hot End Alto
-altri..
-
-- Modifica del Extrusion Length
-#define EXTRUDE_MAXLENGTH 500
-Load Unload di massimo automentato da 200 mm a 500 mm.
-
-- Autostart
-Stampa Automatica appena accesa la macchina di file auto0....1.g, ricordare di cambiare l'estensione dei GCODE IN .g, la stampa automatica aprte da 0 aumentando di 1 l'indice, quindi auto0.g,auto1.g,auto2.g,etc...
-Autostart is available on printers with an SD card reader. If auto0.g exists on the card, the printer will recognize and execute it on bootup. Thereafter, if there are files with incrementing numbers, e.g. auto1.g, they will be done in incrementing order.
-
-POSSIBILI ERRORI:
-   - Err: EEPROM version
-   soluzione: Configuration->Initialize EEPROM / Inizializzazione Memoria EEPROM
-   - Touch storto
-   soluzione: indivisuare la reale posizione dei pulsanti -> Configuration -> touchscreen -> calibrate
-
-   
-   
 
