@@ -29,7 +29,6 @@
 
 #include "../../inc/MarlinConfig.h"
 
-#define SDCARD_EEPROM_EMULATION true
 #if ENABLED(SDCARD_EEPROM_EMULATION)
 
 #include "../shared/eeprom_api.h"
