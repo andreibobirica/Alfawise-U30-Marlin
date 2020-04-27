@@ -148,7 +148,7 @@
 // If no option is selected below the SD Card will be used
 //
 //#define SPI_EEPROM
-#define FLASH_EEPROM_EMULATION
+//#define FLASH_EEPROM_EMULATION
 
 #undef E2END
 #if ENABLED(SPI_EEPROM)
