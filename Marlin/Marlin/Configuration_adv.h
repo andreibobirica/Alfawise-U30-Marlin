@@ -599,7 +599,7 @@
 //#define HOMING_BACKOFF_MM { 2, 2, 2 }  // (mm) Move away from the endstops after homing
 
 // When G28 is called, this option will make Y home before X
-//#define HOME_Y_BEFORE_X
+#define HOME_Y_BEFORE_X
 
 // Enable this if X or Y can't home without homing the other axis first.
 //#define CODEPENDENT_XY_HOMING
@@ -992,7 +992,7 @@
 #endif // HAS_LCD_MENU
 
 // Scroll a longer status message into view
-//#define STATUS_MESSAGE_SCROLLING
+#define STATUS_MESSAGE_SCROLLING
 
 // On the Info Screen, display XY with one decimal place when possible
 //#define LCD_DECIMAL_SMALL_XY
@@ -1066,7 +1066,7 @@
    */
   #define POWER_LOSS_RECOVERY
   #if ENABLED(POWER_LOSS_RECOVERY)
-    #define PLR_ENABLED_DEFAULT   false // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
+    #define PLR_ENABLED_DEFAULT   true // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
     //#define BACKUP_POWER_SUPPLY       // Backup power / UPS to move the steppers on power loss
     //#define POWER_LOSS_ZRAISE       2 // (mm) Z axis raise on resume (on power loss with UPS)
     //#define POWER_LOSS_PIN         44 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
@@ -1243,7 +1243,7 @@
 
   // A bigger font is available for edit items. Costs 3120 bytes of PROGMEM.
   // Western only. Not available for Cyrillic, Kana, Turkish, Greek, or Chinese.
-  //#define USE_BIG_EDIT_FONT
+  #define USE_BIG_EDIT_FONT
 
   // A smaller font may be used on the Info Screen. Costs 2300 bytes of PROGMEM.
   // Western only. Not available for Cyrillic, Kana, Turkish, Greek, or Chinese.
@@ -1287,7 +1287,7 @@
   #define STATUS_BED_ANIM             // Use a second bitmap to indicate bed heating
   #define STATUS_CHAMBER_ANIM         // Use a second bitmap to indicate chamber heating
   //#define STATUS_CUTTER_ANIM        // Use a second bitmap to indicate spindle / laser active
-  //#define STATUS_ALT_BED_BITMAP     // Use the alternative bed bitmap
+  #define STATUS_ALT_BED_BITMAP     // Use the alternative bed bitmap
   //#define STATUS_ALT_FAN_BITMAP     // Use the alternative fan bitmap
   //#define STATUS_FAN_FRAMES 3       // :[0,1,2,3,4] Number of fan animation frames
   #define STATUS_HEAT_PERCENT         // Show heating in a progress bar
@@ -2853,21 +2853,20 @@
 #define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
   #define CUSTOM_USER_MENU_TITLE "Extra"
-  #define USER_SCRIPT_DONE "M117 Azione Eseguita! :)"
+  #define USER_SCRIPT_DONE "M117 Azione Eseguita"
   #define USER_SCRIPT_AUDIBLE_FEEDBACK
   //#define USER_SCRIPT_RETURN  // Return to status screen after a script
 
   //#define USER_DESC_1 "Rimuovi Stampa"
   //#define USER_GCODE_1 "M117 Rimozione in corso \n G91\n G1 Z10\n G90\n G28 X Y F4000\n G1 X110 Y220 F4000\n G1 Z2 F4000\nG1 X110 Y1 Z2 F2400"
 
-  #define USER_DESC_2 "Home & HotEnd Alto"
+  #define USER_DESC_2 "Home & go top"
   #define USER_GCODE_2 "M117 Movimento in corso \nG28 F3000\nG1 X110 Y110 Z200 F4000"
-
-  #define USER_DESC_3 "Accendi Mesh"
+  #define USER_DESC_3 "Turn on mesh"
   #define USER_GCODE_3 "M420 S1"
 
-  //#define USER_DESC_4 "Preheat/Home"
-  //#define USER_GCODE_4 "M140 S50\n M104 S200\n G28\n M0 Premere per partire...\n G29"
+  #define USER_DESC_4 "Delete Auto files"
+  #define USER_GCODE_4 "M30 project.bin\n M30 Longer3D.UI\nM30 auto0.g\nM30 auto1.g\nM30 auto2.g\nM30 auto3.g\nM30 auto4.g\nM30 auto5.g\nM30 auto6.g\nM30 auto7.g\nM30 auto8.g\nM30 auto9.g\nM30 auto10.g"
 
   #define USER_DESC_5 "Home"
   #define USER_GCODE_5 "G28"

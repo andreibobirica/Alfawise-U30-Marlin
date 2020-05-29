@@ -73,8 +73,9 @@ const unsigned char status_logo_bmp[] PROGMEM = {
 //
 // Use default bitmaps
 //
-#define STATUS_HOTEND_ANIM
-#define STATUS_BED_ANIM
+#define STATUS_ALT_FAN_BITMAP true
+#define STATUS_CUTTER_ANIM
+#define STATUS_CHAMBER_ANIM
 #define STATUS_LOGO_X          0
 #define STATUS_HEATERS_X      50
 #define STATUS_BED_X          74

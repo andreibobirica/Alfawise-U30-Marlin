@@ -331,6 +331,7 @@ public:
     #if HAS_SPI_LCD
 
       static millis_t next_button_update_ms;
+      
 
       static bool detected();
 
@@ -438,6 +439,7 @@ public:
     #if ENABLED(TOUCH_BUTTONS)
       static uint8_t touch_buttons;
       static uint8_t repeat_delay;
+      static uint8_t repeat_back;
     #endif
 
     #if ENABLED(ENCODER_RATE_MULTIPLIER)

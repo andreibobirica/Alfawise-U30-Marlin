@@ -350,6 +350,7 @@ namespace Language_it {
   PROGMEM Language_Str MSG_PRINT_PAUSED                    = _UxGT("Stampa sospesa");
   PROGMEM Language_Str MSG_PRINTING                        = _UxGT("Stampa...");
   PROGMEM Language_Str MSG_PRINT_ABORTED                   = _UxGT("Stampa annullata");
+  PROGMEM Language_Str MSG_PRINT_ABORTED_FORCE             = _UxGT("Force Stop");
   PROGMEM Language_Str MSG_NO_MOVE                         = _UxGT("Nessun Movimento");
   PROGMEM Language_Str MSG_KILLED                          = _UxGT("UCCISO. ");
   PROGMEM Language_Str MSG_STOPPED                         = _UxGT("ARRESTATO. ");

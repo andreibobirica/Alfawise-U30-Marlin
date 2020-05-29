@@ -27,6 +27,7 @@
 #include "../module/stepper.h"
 
 void select_multiplexed_stepper(const uint8_t e) {
+  //Da modificare
   planner.synchronize();
   disable_e_steppers();
   WRITE(E_MUX0_PIN, TEST(e, 0) ? HIGH : LOW);

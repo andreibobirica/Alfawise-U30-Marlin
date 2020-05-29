@@ -24,7 +24,7 @@
 
 #if !defined(__STM32F1__) && !defined(STM32F1xx)
   #error "Oops! Select a STM32F1 board in 'Tools > Board.'"
-#elif HOTENDS > 1 || E_STEPPERS > 1
+#elif HOTENDS > 1 && E_STEPPERS > 1
   #error "Longer3D board only supports 1 hotend / E-stepper. Comment out this line to continue."
 #endif
 

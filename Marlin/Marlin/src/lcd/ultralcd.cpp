@@ -619,6 +619,8 @@ void MarlinUI::kill_screen(PGM_P lcd_error, PGM_P lcd_component) {
 
 void MarlinUI::quick_feedback(const bool clear_buttons/*=true*/) {
 
+  /**Codice di quick feedback alla pressione o esecuzione di un comando sullo touchscreen*/
+
   #if HAS_LCD_MENU
     refresh();
   #endif
@@ -747,6 +749,9 @@ void MarlinUI::quick_feedback(const bool clear_buttons/*=true*/) {
 
 LCDViewAction MarlinUI::lcdDrawUpdate = LCDVIEW_CLEAR_CALL_REDRAW;
 
+//Timer di pulsante premuto back, il pulsante D
+millis_t back_abort_time = 0;
+
 void MarlinUI::update() {
 
   static uint16_t max_display_update_time = 0;
@@ -805,6 +810,14 @@ void MarlinUI::update() {
         }
         else if (!wait_for_unclick && (buttons & EN_C))   // OK button, if not waiting for a debounce release:
           do_click();
+        else if (!wait_for_unclick && (buttons & EN_D)){   // Azioni da eseguire solo la prima "premuta" di D
+          back_abort_time = ms + 3500;
+          quick_feedback();
+          goto_previous_screen();
+          wait_for_unclick = true;
+          //drawImage(buttonC, u8g, dev, 32, 20, TFT_BTOKMENU_COLOR);
+        }
+      
       }
       else // keep wait_for_unclick value
 
@@ -819,10 +832,16 @@ void MarlinUI::update() {
           wait_for_unclick = false;
       }
 
-    if (LCD_BACK_CLICKED()) {
-      quick_feedback();
-      goto_previous_screen();
-    }
+    /*D BUTTON BACK FORCE ABORT*/
+    if(LCD_BACK_CLICKED()) {
+        if(ELAPSED(ms, back_abort_time)){
+          wait_for_heatup = wait_for_user = false; //spengo tutti i calback
+          card.flag.abort_sd_printing = true;//aborting stampa da sd
+          print_job_timer.stop();//timer job spento
+          set_status_P(GET_TEXT(MSG_PRINT_ABORTED_FORCE));//messaggio a schermo
+          back_abort_time = ms + 3500;//Reimposto timer di force stop;
+        }
+    }//end LCD_BACK_CLICKED()
 
   #endif // HAS_LCD_MENU
 
