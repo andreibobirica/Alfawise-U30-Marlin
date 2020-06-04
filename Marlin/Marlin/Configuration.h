@@ -183,11 +183,10 @@
 
 // This defines the number of extruders
 // :[1, 2, 3, 4, 5, 6, 7, 8]
-#if DISABLED(RELAYMULTIE)
-  #define EXTRUDERS 1
-#endif
+#define EXTRUDERS 1
+
 #if ENABLED(RELAYMULTIE)
- #define EXTRUDERS 2
+ //#define EXTRUDERS 2
 #endif 
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
@@ -195,7 +194,7 @@
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 #if ENABLED(RELAYMULTIE)
-  #define SINGLENOZZLE
+  //#define SINGLENOZZLE
 #endif
 
 /**
@@ -209,14 +208,14 @@
  * Additional options to configure custom E moves are pending.
  */
 #if ENABLED(RELAYMULTIE)
-  #define MK2_MULTIPLEXER
+  //#define MK2_MULTIPLEXER
 #endif
 #if ENABLED(MK2_MULTIPLEXER)
   // Override the default DIO selector pins here, if needed.
   // Some pins files may provide defaults for these pins.
-  #define E_MUX0_PIN PD13  // Always Required
-  #define E_MUX1_PIN PD13  // Needed for 3 to 8 inputs
-  #define E_MUX2_PIN PD13  // Needed for 5 to 8 inputs
+  //#define E_MUX0_PIN PD13  // Always Required
+  //#define E_MUX1_PIN PD13  // Needed for 3 to 8 inputs
+  //#define E_MUX2_PIN PD13  // Needed for 5 to 8 inputs
 #endif
 
 /**
@@ -1708,7 +1707,7 @@
  *
  * :{ 'en':'English', 'an':'Aragonese', 'bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'de':'German', 'el':'Greek', 'el_gr':'Greek (Greece)', 'es':'Spanish', 'eu':'Basque-Euskera', 'fi':'Finnish', 'fr':'French', 'gl':'Galician', 'hr':'Croatian', 'it':'Italian', 'jp_kana':'Japanese', 'ko_KR':'Korean (South Korea)', 'nl':'Dutch', 'pl':'Polish', 'pt':'Portuguese', 'pt_br':'Portuguese (Brazilian)', 'ru':'Russian', 'sk':'Slovak', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', 'zh_TW':'Chinese (Traditional)', 'test':'TEST' }
  */
-#define LCD_LANGUAGE en
+#define LCD_LANGUAGE it
 
 /**
  * LCD Character Set

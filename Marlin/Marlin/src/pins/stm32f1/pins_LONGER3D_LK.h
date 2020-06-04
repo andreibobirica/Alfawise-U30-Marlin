@@ -89,7 +89,7 @@
 #define FAN_MIN_PWM 35                            // Fan will not start in 1-30 range
 #define FAN_MAX_PWM 255
 
-//#define BEEPER_PIN                        PD13  // pin 60 (Servo PWM output 5V/GND on Board V0G+) made for BL-Touch sensor
+//#define BEEPER_PIN                          PD13  // pin 60 (Servo PWM output 5V/GND on Board V0G+) made for BL-Touch sensor
                                  // Can drive a PC Buzzer, if connected between PWM and 5V pins
 
 #define LED_PIN                             PC2   // pin 17

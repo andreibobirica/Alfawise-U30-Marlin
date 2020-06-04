@@ -769,6 +769,7 @@ inline void fast_line_to_current(const AxisEnum fr_axis) { _line_to_current(fr_a
 
 #endif // DUAL_X_CARRIAGE
 
+
 /**
  * Perform a tool-change, which may result in moving the
  * previous tool out of the way and the new tool into place.
@@ -778,7 +779,6 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
   #if ENABLED(MAGNETIC_SWITCHING_TOOLHEAD)
     if (new_tool == active_extruder) return;
   #endif
-
   #if ENABLED(MIXING_EXTRUDER)
 
     UNUSED(no_move);
@@ -817,7 +817,7 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
       if (new_tool != 0 && dxc_is_duplicating())
          return invalid_extruder_error(new_tool);
     #endif
-
+    
     if (new_tool >= EXTRUDERS)
       return invalid_extruder_error(new_tool);
 
@@ -872,6 +872,9 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
     #endif
 
     if (new_tool != old_tool) {
+
+      //stampo effettiva modifica
+      SERIAL_ECHOLNPGM("E Changed");
 
       #if SWITCHING_NOZZLE_TWO_SERVOS
         raise_nozzle(old_tool);
