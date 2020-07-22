@@ -343,6 +343,7 @@ namespace Language_it {
   PROGMEM Language_Str MSG_CANCEL_OBJECT                   = _UxGT("Cancella Oggetto");
   PROGMEM Language_Str MSG_CANCEL_OBJECT_N                 = _UxGT("Canc. Oggetto =");
   PROGMEM Language_Str MSG_OUTAGE_RECOVERY                 = _UxGT("Ripresa da PowerLoss");
+  PROGMEM Language_Str MSG_REVERSE_RELAYMULTIE             = _UxGT("Reverse Relay");  // Max 17 characters
   PROGMEM Language_Str MSG_MEDIA_MENU                      = _UxGT("Stampa da media");
   PROGMEM Language_Str MSG_NO_MEDIA                        = _UxGT("Media non presente");
   PROGMEM Language_Str MSG_DWELL                           = _UxGT("Sospensione...");

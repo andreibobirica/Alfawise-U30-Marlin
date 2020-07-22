@@ -828,6 +828,7 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
 
     #if HAS_LCD_MENU
       if (!no_move) ui.return_to_status();
+      //Quando cambia estrusore ritorna alla home
     #endif
 
     #if ENABLED(DUAL_X_CARRIAGE)
@@ -874,7 +875,7 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
     if (new_tool != old_tool) {
 
       //stampo effettiva modifica
-      SERIAL_ECHOLNPGM("E Changed");
+      SERIAL_ECHOLNPGM("Asked for a different T");
 
       #if SWITCHING_NOZZLE_TWO_SERVOS
         raise_nozzle(old_tool);
@@ -975,6 +976,8 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
       // Return to position and lower again
       if (safe_to_move && !no_move && IsRunning()) {
 
+        //Parte eliminata per una migliore gestione da slicer
+        /*
         #if ENABLED(SINGLENOZZLE)
           #if FAN_COUNT > 0
             singlenozzle_fan_speed[old_tool] = thermalManager.fan_speed[0];
@@ -990,6 +993,7 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
             (void)thermalManager.wait_for_hotend(0, false);  // Wait for heating or cooling
           }
         #endif
+        */
 
         #if ENABLED(TOOLCHANGE_FILAMENT_SWAP)
           if (should_swap && !too_cold) {

@@ -224,6 +224,7 @@ void _goto_manual_move(const float scale) {
 void _menu_move_distance(const AxisEnum axis, const screenFunc_t func, const int8_t eindex=-1) {
   _manual_move_func_ptr = func;
   START_MENU();
+
   if (LCD_HEIGHT >= 4) {
     switch (axis) {
       case X_AXIS: STATIC_ITEM(MSG_MOVE_X, SS_CENTER|SS_INVERT); break;
@@ -302,7 +303,7 @@ void menu_move() {
   else
     GCODES_ITEM(MSG_AUTO_HOME, G28_STR);
 
-  #if ANY(SWITCHING_EXTRUDER, SWITCHING_NOZZLE, MAGNETIC_SWITCHING_TOOLHEAD)
+  #if ANY(SWITCHING_EXTRUDER, SWITCHING_NOZZLE, MAGNETIC_SWITCHING_TOOLHEAD, RELAYMULTIE)
 
     #if EXTRUDERS >= 4
       switch (active_extruder) {
@@ -357,7 +358,7 @@ void menu_move() {
     #elif E_MANUAL > 1
 
       // Independent extruders with one E-stepper per hotend
-      LOOP_L_N(n, E_MANUAL) SUBMENU_MOVE_E(n);
+      //LOOP_L_N(n, E_MANUAL) SUBMENU_MOVE_E(n);
 
     #endif
 

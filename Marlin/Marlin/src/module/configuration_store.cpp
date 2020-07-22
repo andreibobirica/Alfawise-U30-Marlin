@@ -316,6 +316,10 @@ typedef struct SettingsDataStruct {
   //
   bool recovery_enabled;                                // M413 S
 
+  #if ENABLED(RELAYMULTIE)
+    bool reverseRELAYMULTIE_enabled;
+  #endif
+
   //
   // FWRETRACT
   //
@@ -933,6 +937,12 @@ void MarlinSettings::postprocess() {
       _FIELD_TEST(recovery_enabled);
       const bool recovery_enabled = TERN(POWER_LOSS_RECOVERY, recovery.enabled, ENABLED(PLR_ENABLED_DEFAULT));
       EEPROM_WRITE(recovery_enabled);
+
+      #if ENABLED(RELAYMULTIE)
+        _FIELD_TEST(reverseRELAYMULTIE_enabled);
+        const bool reverseRELAYMULTIE_enabled = TERN(RELAYMULTIE, recovery.reverseRELAYMULTIE, ENABLED(PLR_ENABLED_DEFAULT));
+        EEPROM_WRITE(reverseRELAYMULTIE_enabled);
+      #endif
     }
 
     //
@@ -1809,7 +1819,15 @@ void MarlinSettings::postprocess() {
           bool recovery_enabled;
         #endif
         EEPROM_READ(recovery_enabled);
+
+        #if ENABLED(RELAYMULTIE)
+          _FIELD_TEST(reverseRELAYMULTIE_enabled);
+          const bool &reverseRELAYMULTIE_enabled = recovery.reverseRELAYMULTIE;
+          EEPROM_READ(reverseRELAYMULTIE_enabled);
+        #endif
       }
+
+      
 
       //
       // Firmware Retraction
@@ -3278,6 +3296,12 @@ void MarlinSettings::reset() {
       CONFIG_ECHO_HEADING("Power-Loss Recovery:");
       CONFIG_ECHO_START();
       SERIAL_ECHOLNPAIR("  M413 S", int(recovery.enabled));
+    #endif
+
+    #if ENABLED(RELAYMULTIE)
+      CONFIG_ECHO_HEADING("Reverse Relay Multi E:");
+      CONFIG_ECHO_START();
+      SERIAL_ECHOLNPAIR("Reversed: ", int(recovery.reverseRELAYMULTIE));
     #endif
 
     #if ENABLED(FWRETRACT)

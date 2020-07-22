@@ -26,42 +26,38 @@
 
 #include "../module/stepper.h"
 
+#include "../../feature/powerloss.h"
+
 void select_multiplexed_stepper(const uint8_t e) {
+  //Relay State
+  bool state = recovery.reverseRELAYMULTIE;
+
   planner.synchronize();
   disable_e_steppers();
-  //Azionamento PWM
-  const pin_t pin = GET_PIN_MAP_PIN(PD13);//PIN PWM
+  //Azionamento Relay
+  const pin_t pin = GET_PIN_MAP_PIN(PD13);//PIN relay Digitale
   if (pin_is_protected(pin)) return protected_pin_err();//stop if pin protected
-  pinMode(pin, OUTPUT);//set pin to output
-  //set value to pass to PWM
-  //const byte pin_val0 = (uint8_t)0;
-  //const byte pin_val1 = (uint8_t)255;
+  safe_delay(100);//Wait sicurezza
 
-  //print pin number
-  SERIAL_ECHOLNPAIR("pin: ", pin);
-  //print e number
-  SERIAL_ECHOLNPAIR("E: ", e);
+  pinMode(pin, OUTPUT);//set pin to output
+  //print pin number    //SERIAL_ECHOLNPAIR("pin: ", pin);
+  SERIAL_ECHOLNPAIR("ask for E: ", e);
+  SERIAL_ECHOLNPAIR("Relay State: ", state);
 
   if(e == (uint8_t)1){
-    //extDigitalWrite(pin,HIGH)
-    extDigitalWrite(pin, HIGH);
-      SERIAL_ECHOLNPGM("E1 activated pwm");
+      //LOW is 5 volt, HIGH is 0
+      extDigitalWrite(pin, !state);
+      SERIAL_ECHOLNPGM("E1 activated");
   }
 
   if(e == (uint8_t)0){
-    //extDigitalWrite(pin,LOW);
-      extDigitalWrite(pin, LOW);
-      SERIAL_ECHOLNPGM("E0 activated pwm");
+      //LOW is 5 volt, HIGH is 0
+      extDigitalWrite(pin, state);
+      SERIAL_ECHOLNPGM("E0 activated");
   }
   
   //safe delay to active the relay
   safe_delay(500);
-
-  if(extDigitalRead(pin))
-  SERIAL_ECHOLNPGM("stato HIGH");
-
-
-
 
 
 

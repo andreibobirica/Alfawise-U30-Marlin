@@ -406,6 +406,11 @@ void menu_configuration() {
     EDIT_ITEM(bool, MSG_RUNOUT_SENSOR, &runout.enabled, runout.reset);
   #endif
 
+  //Reverse Dual E Logic
+  #if ENABLED(RELAYMULTIE)
+    EDIT_ITEM(bool, MSG_REVERSE_RELAYMULTIE, &recovery.reverseRELAYMULTIE);
+  #endif
+
   #if ENABLED(POWER_LOSS_RECOVERY)
     EDIT_ITEM(bool, MSG_OUTAGE_RECOVERY, &recovery.enabled, recovery.changed);
   #endif
