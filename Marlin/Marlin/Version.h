@@ -34,19 +34,19 @@
  * Verbose version identifier which should contain a reference to the location
  * from where the binary was downloaded or the source code was compiled.
  */
-//#define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (Github)"
+//#define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION "https://github.com/andreibobirica/Alfawise-U30-Marlin"
 
 /**
  * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-//#define STRING_DISTRIBUTION_DATE "2020-07-09"
+//#define STRING_DISTRIBUTION_DATE "2020-07-26"
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-//#define MACHINE_NAME "3D Printer"
+//#define MACHINE_NAME "Alfawise U30"
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source
