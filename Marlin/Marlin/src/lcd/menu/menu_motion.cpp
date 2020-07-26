@@ -224,7 +224,6 @@ void _goto_manual_move(const float scale) {
 void _menu_move_distance(const AxisEnum axis, const screenFunc_t func, const int8_t eindex=-1) {
   _manual_move_func_ptr = func;
   START_MENU();
-
   if (LCD_HEIGHT >= 4) {
     switch (axis) {
       case X_AXIS: STATIC_ITEM(MSG_MOVE_X, SS_CENTER|SS_INVERT); break;

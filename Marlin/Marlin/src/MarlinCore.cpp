@@ -837,6 +837,7 @@ void stop() {
  *    • Max7219
  */
 void setup() {
+
   HAL_init();
 
   #if HAS_L64XX
@@ -886,16 +887,11 @@ void setup() {
   #endif
 
   #if NUM_SERIAL > 0
-    #ifdef OVERCLOCK
-      #define CLOCKRATE ((BAUDRATE*OC_BASE_MHZ)/OC_TARGET_MHZ)
-    #else
-      #define CLOCKRATE BAUDRATE
-    #endif
-    MYSERIAL0.begin(CLOCKRATE);
+    MYSERIAL0.begin(BAUDRATE);
     uint32_t serial_connect_timeout = millis() + 1000UL;
     while (!MYSERIAL0 && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
     #if NUM_SERIAL > 1
-      MYSERIAL1.begin(CLOCKRATE);
+      MYSERIAL1.begin(BAUDRATE);
       serial_connect_timeout = millis() + 1000UL;
       while (!MYSERIAL1 && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
     #endif
