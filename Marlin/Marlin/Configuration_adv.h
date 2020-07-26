@@ -2853,7 +2853,7 @@
 #define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
   #define CUSTOM_USER_MENU_TITLE "Extra"
-  #define USER_SCRIPT_DONE "M117 Azione Eseguita"
+  #define USER_SCRIPT_DONE "M117 OK ;)"
   #define USER_SCRIPT_AUDIBLE_FEEDBACK
   //#define USER_SCRIPT_RETURN  // Return to status screen after a script
 
