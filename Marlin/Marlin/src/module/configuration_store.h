@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 #pragma once
@@ -29,9 +29,9 @@
 
 class MarlinSettings {
   public:
-    bool was_reset;
-
     static uint16_t datasize();
+    
+    bool was_reset;
 
     static void reset();
     static bool save();    // Return 'true' if data was saved
@@ -40,9 +40,7 @@ class MarlinSettings {
       reset();
       #if ENABLED(EEPROM_SETTINGS)
         const bool success = save();
-        #if ENABLED(EEPROM_CHITCHAT)
-          if (success) report();
-        #endif
+        if (TERN0(EEPROM_CHITCHAT, success)) report();
         return success;
       #else
         return true;
