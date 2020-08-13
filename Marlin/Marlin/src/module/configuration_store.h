@@ -29,9 +29,9 @@
 
 class MarlinSettings {
   public:
-    static uint16_t datasize();
-    
     bool was_reset;
+
+    static uint16_t datasize();
 
     static void reset();
     static bool save();    // Return 'true' if data was saved

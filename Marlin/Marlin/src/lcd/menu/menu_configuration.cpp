@@ -419,7 +419,7 @@ void menu_configuration() {
   #endif
 
   #if ENABLED(TOUCH_CALIBRATION)
-    MENU_ITEM(submenu, MSG_TOUCHSCREEN, menu_touchscreen);
+    SUBMENU(MSG_TOUCHSCREEN, menu_touchscreen);
   #endif
 
   #if ENABLED(EEPROM_SETTINGS)
