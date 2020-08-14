@@ -2245,7 +2245,7 @@
 /*Punto in cui si definiscono i 3 pulsanti nella versione sottostante*/
 #define TOUCH_BUTTONS
 #if ENABLED(TOUCH_BUTTONS)
-  //#define TOUCH_CALIBRATION // Include user calibration widget in menus (Alfawise)
+  #define TOUCH_CALIBRATION // Include user calibration widget in menus (Alfawise)
 
   #define BUTTON_DELAY_EDIT  75 // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU 100 // (ms) Button repeat delay for menus

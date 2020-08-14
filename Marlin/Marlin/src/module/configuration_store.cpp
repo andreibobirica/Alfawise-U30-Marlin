@@ -386,9 +386,6 @@ typedef struct SettingsDataStruct {
     fil_change_settings_t fc_settings[EXTRUDERS];       // M603 T U L
   #endif
 
-  // TOUCH_CALIBRATION (XPT2046)
-  int16_t touchscreen_calibration[4];
-
   //
   // Tool-change settings
   //
