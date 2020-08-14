@@ -163,6 +163,13 @@
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
 //#define MACHINE_UUID "d997cc2d-cbcf-4bfe-8d88-bc993fe8de81"
 
+//Overclock Function
+//#define OVERCLOCK
+#if ENABLED(OVERCLOCK)
+  #define OC_BASE_MHZ 72
+  #define OC_TARGET_MHZ 128
+#endif
+
 // @section extruder
 //RELAY MULTI E
 #define RELAYMULTIE true
