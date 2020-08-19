@@ -1061,8 +1061,6 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
       const bool should_move = safe_to_move && !no_move && IsRunning();
       if (should_move) {
 
-        //ERROR
-        //IN CASO DI BISOGNO ELIMINARE
         #if BOTH(HAS_FAN, SINGLENOZZLE_STANDBY_FAN)
         if(recovery.standbyNozzleRELAYMULTIE){
           singlenozzle_fan_speed[old_tool] = thermalManager.fan_speed[0];
@@ -1145,7 +1143,8 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
             #if ENABLED(TOOLCHANGE_PARK)
               if (toolchange_settings.enable_park) do_blocking_move_to_xy_z(destination, destination.z, MMM_TO_MMS(TOOLCHANGE_PARK_XY_FEEDRATE));
             #else
-              do_blocking_move_to_xy(destination);
+              do_blocking_move_to_xy(destination, planner.settings.max_feedrate_mm_s[X_AXIS]);
+              do_blocking_move_to_z(destination.z, planner.settings.max_feedrate_mm_s[Z_AXIS]);
             #endif
 
           #endif

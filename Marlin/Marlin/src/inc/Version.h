@@ -25,12 +25,7 @@
  * Release version. Leave the Marlin version or apply a custom scheme.
  */
 #ifndef SHORT_BUILD_VERSION
-  #if ENABLED(RELAYMULTIE)
-    #define SHORT_BUILD_VERSION "2.0.6.Dual"
-  #endif
-  #if DISABLED(RELAYMULTIE)
-    #define SHORT_BUILD_VERSION "2.0.6"
-  #endif
+  #define SHORT_BUILD_VERSION "2.0.6"
 #endif
 
 /**
@@ -47,7 +42,7 @@
  * version was tagged.
  */
 #ifndef STRING_DISTRIBUTION_DATE
-  #define STRING_DISTRIBUTION_DATE "2020-08-30"
+  #define STRING_DISTRIBUTION_DATE "2020-08-17"
 #endif
 
 /**
@@ -78,7 +73,7 @@
  * Define a generic printer name to be output to the LCD after booting Marlin.
  */
 #ifndef MACHINE_NAME
-  #define MACHINE_NAME "Alfawise U30"
+  #define MACHINE_NAME "3D Printer"
 #endif
 
 /**
@@ -87,7 +82,7 @@
  * providing the source code to your customers.)
  */
 #ifndef SOURCE_CODE_URL
-  #define SOURCE_CODE_URL "https://github.com/andreibobirica/Alfawise-U30-Marlin"
+  #define SOURCE_CODE_URL "https://github.com/MarlinFirmware/Marlin"
 #endif
 
 /**
@@ -102,7 +97,7 @@
    * documentation about a specific Marlin release. Displayed in the Info Menu.
    */
 #ifndef WEBSITE_URL
-  #define WEBSITE_URL "bit.do/AlfawiseU30BOB"
+  #define WEBSITE_URL "https://marlinfw.org"
 #endif
 
 /**

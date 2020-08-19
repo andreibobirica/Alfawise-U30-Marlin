@@ -21,7 +21,7 @@
  */
 
 /**
- * power_loss_recovery.cpp - Resume an SD print after power-loss
+ * feature/powerloss.cpp - Resume an SD print after power-loss
  */
 
 #include "../inc/MarlinConfigPre.h"
@@ -364,7 +364,7 @@ void PrintJobRecovery::resume() {
 
     gcode.process_subcommands_now_P(PSTR(
       "G28R0"                               // No raise during G28
-      TERN_(MARLIN_DEV_MODE, "S")           // Simulated Homing
+      TERN_(MARLIN_DEV_MODE, "S")           // Simulated Homing, DON'T HOME !!!
       TERN_(IS_CARTESIAN, "XY")             // Don't home Z on Cartesian
     ));
 

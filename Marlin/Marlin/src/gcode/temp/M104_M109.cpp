@@ -45,12 +45,12 @@
   #endif
 #endif
 
-#if ENABLED(RELAYMULTIE)
-  #include "../../feature/powerloss.h"
-#endif
-
 #if ENABLED(SINGLENOZZLE)
   #include "../../module/tool_change.h"
+#endif
+
+#if ENABLED(RELAYMULTIE)
+  #include "../../feature/powerloss.h"
 #endif
 
 /**

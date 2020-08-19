@@ -74,7 +74,7 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
   #endif
 #endif
 
-#if ENABLED(PCA9632_BUZZER) || USE_BEEPER
+#if EITHER(PCA9632_BUZZER, USE_BEEPER)
   #include "../libs/buzzer.h" // for BUZZ() macro
   #if ENABLED(PCA9632_BUZZER)
     #include "../feature/leds/pca9632.h"
@@ -123,7 +123,7 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
 #include "lcdprint.h"
 
 #include "../sd/cardreader.h"
-#include "../module/configuration_store.h"
+#include "../module/settings.h"
 #include "../module/temperature.h"
 #include "../module/planner.h"
 #include "../module/motion.h"
@@ -149,8 +149,8 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
   #if HAS_SLOW_BUTTONS
     volatile uint8_t MarlinUI::slow_buttons;
   #endif
-  #if ENABLED(TOUCH_BUTTONS)
-    #include "../feature/touch/xpt2046.h"
+  #if HAS_TOUCH_XPT2046
+    #include "touch/xpt2046.h"
     bool MarlinUI::on_edit_screen = false;
   #endif
 #endif
@@ -229,7 +229,7 @@ millis_t MarlinUI::next_button_update_ms; // = 0
     int8_t MarlinUI::encoderDirection = ENCODERBASE;
   #endif
 
-  #if ENABLED(TOUCH_BUTTONS)
+  #if HAS_TOUCH_XPT2046
     uint8_t MarlinUI::touch_buttons;
     uint8_t MarlinUI::repeat_delay;
   #endif
@@ -802,6 +802,9 @@ void MarlinUI::quick_feedback(const bool clear_buttons/*=true*/) {
 
 LCDViewAction MarlinUI::lcdDrawUpdate = LCDVIEW_CLEAR_CALL_REDRAW;
 millis_t next_lcd_update_ms;
+#if HAS_LCD_MENU && LCD_TIMEOUT_TO_STATUS
+  millis_t MarlinUI::return_to_status_ms = 0;
+#endif
 
 //Timer di pulsante premuto back, il pulsante D
 millis_t back_abort_time = 0;
@@ -812,7 +815,6 @@ void MarlinUI::update() {
   millis_t ms = millis();
 
   #if HAS_LCD_MENU && LCD_TIMEOUT_TO_STATUS > 0
-    static millis_t return_to_status_ms = 0;
     #define RESET_STATUS_TIMEOUT() (return_to_status_ms = ms + LCD_TIMEOUT_TO_STATUS)
   #else
     #define RESET_STATUS_TIMEOUT() NOOP
@@ -824,6 +826,7 @@ void MarlinUI::update() {
 
   #if HAS_LCD_MENU
 
+    
     // Handle any queued Move Axis motion
     manual_move.task();
 
@@ -841,7 +844,7 @@ void MarlinUI::update() {
       quick_feedback();                               //  - Always make a click sound
     };
 
-    #if ENABLED(TOUCH_BUTTONS)
+    #if HAS_TOUCH_XPT2046
       if (touch_buttons) {
         RESET_STATUS_TIMEOUT();
         if (touch_buttons & (EN_A | EN_B)) {              // Menu arrows, in priority
@@ -874,7 +877,7 @@ void MarlinUI::update() {
       }
       else // keep wait_for_unclick value
 
-    #endif // TOUCH_BUTTONS
+    #endif // HAS_TOUCH_XPT2046
 
       {
         // Integrated LCD click handling via button_pressed
@@ -888,10 +891,11 @@ void MarlinUI::update() {
     /*D BUTTON BACK FORCE ABORT*/
     if(LCD_BACK_CLICKED()) {
         if(ELAPSED(ms, back_abort_time)){
-          wait_for_heatup = wait_for_user = false; //spengo tutti i calback
-          card.flag.abort_sd_printing = true;//aborting stampa da sd
-          print_job_timer.stop();//timer job spento
-          set_status_P(GET_TEXT(MSG_PRINT_ABORTED_FORCE));//messaggio a schermo
+          ////wait_for_heatup = wait_for_user = false; //spengo tutti i calback
+          //card.flag.abort_sd_printing = true;//aborting stampa da sd
+          //print_job_timer.stop();//timer job spento
+          abort_print();
+          //set_status_P(GET_TEXT(MSG_PRINT_ABORTED_FORCE));//messaggio a schermo
           back_abort_time = ms + 3500;//Reimposto timer di force stop;
         }
     }//end LCD_BACK_CLICKED()
@@ -902,7 +906,7 @@ void MarlinUI::update() {
 
     next_lcd_update_ms = ms + LCD_UPDATE_INTERVAL;
 
-    #if ENABLED(TOUCH_BUTTONS)
+    #if HAS_TOUCH_XPT2046
 
       if (on_status_screen()) next_lcd_update_ms += (LCD_UPDATE_INTERVAL) * 2;
 
@@ -1099,6 +1103,8 @@ void MarlinUI::update() {
     } // switch
 
   } // ELAPSED(ms, next_lcd_update_ms)
+
+  TERN_(HAS_GRAPHICAL_TFT, tft_idle());
 }
 
 #if HAS_ADC_BUTTONS
@@ -1245,7 +1251,7 @@ void MarlinUI::update() {
           #if HAS_SLOW_BUTTONS
             | slow_buttons
           #endif
-          #if BOTH(TOUCH_BUTTONS, HAS_ENCODER_ACTION)
+          #if BOTH(HAS_TOUCH_XPT2046, HAS_ENCODER_ACTION)
             | (touch_buttons & TERN(HAS_ENCODER_WHEEL, ~(EN_A | EN_B), 0xFF))
           #endif
         );
@@ -1554,7 +1560,7 @@ void MarlinUI::update() {
 
   #endif
 
-  #if ENABLED(TOUCH_BUTTONS)
+  #if HAS_TOUCH_XPT2046
 
     //
     // Screen Click
@@ -1563,24 +1569,25 @@ void MarlinUI::update() {
     //  - On select screens (and others) touch the Right Half for +, Left Half for -
     //  - On edit screens, touch Up Half for -,  Bottom Half to +
     //
- void MarlinUI::screen_click(const uint8_t row, const uint8_t col, const uint8_t, const uint8_t) {
-      const int8_t xdir = col < (LCD_WIDTH ) / 2 ? -1 : 1,
-                   ydir = row < (LCD_HEIGHT) / 2 ? -1 : 1;
-      if (on_edit_screen){
-        //encoderDiff = epps * ydir;
+    void MarlinUI::screen_click(const uint8_t row, const uint8_t col, const uint8_t, const uint8_t) {
+      const millis_t now = millis();
+      if (ELAPSED(now, next_button_update_ms)) {
+        next_button_update_ms = now + repeat_delay;    // Assume the repeat delay
+        const int8_t xdir = col < (LCD_WIDTH ) / 2 ? -1 : 1,
+                    ydir = row < (LCD_HEIGHT) / 2 ? -1 : 1;
+        if (on_edit_screen)
+          encoderDiff = epps * ydir * 2;
+        else if (screen_items > 0) {
+          // Last 5 cols act as a scroll :-)
+          if (col > (LCD_WIDTH) - 5)
+            // 2 * LCD_HEIGHT to scroll to bottom of next page. (LCD_HEIGHT would only go 1 item down.)
+            encoderDiff = epps * (encoderLine - encoderTopLine + 2 * (LCD_HEIGHT)) * ydir;
+          else
+            encoderDiff = epps * (row - encoderPosition + encoderTopLine);
+        }
+        else if (!on_status_screen())
+          encoderDiff = epps * xdir * 2;
       }
-        
-        
-      else if (screen_items > 0) {
-        // Last col act as a scroll :-)
-        /*if (col > (LCD_WIDTH) - 3)
-          // 2 * LCD_HEIGHT to scroll to bottom of next page. (LCD_HEIGHT would only go 1 item down.)
-          encoderDiff = epps * (encoderLine - encoderTopLine + 2 * (LCD_HEIGHT)) * ydir;
-        else*/
-          encoderDiff = epps * (row - encoderPosition + encoderTopLine);
-      }
-      else if (!on_status_screen()){}
-        //encoderDiff = epps * xdir;
     }
 
   #endif

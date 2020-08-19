@@ -21,7 +21,7 @@
 
 #if ENABLED(TOUCH_CALIBRATION)
 
-#include "xpt2046.h"
+#include "../../lcd/touch/xpt2046.h"
 #include "../../module/temperature.h"
 #include "../../lcd/ultralcd.h" // ui.xxx
 #include "calibration.h"

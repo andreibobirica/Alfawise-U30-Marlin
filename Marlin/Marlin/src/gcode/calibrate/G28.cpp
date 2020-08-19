@@ -207,6 +207,7 @@ void GcodeSuite::G28() {
     DualXMode IDEX_saved_mode = dual_x_carriage_mode;
   #endif
 
+  //Marlin developer Mode don't home after power loss recovery
   #if ENABLED(MARLIN_DEV_MODE)
     if (parser.seen('S')) {
       LOOP_XYZ(a) set_axis_is_at_home((AxisEnum)a);
@@ -312,14 +313,14 @@ void GcodeSuite::G28() {
     #endif
 
     const float z_homing_height =
-      ENABLED(UNKNOWN_Z_NO_RAISE) && TEST(axis_known_position, Z_AXIS)
+      ENABLED(UNKNOWN_Z_NO_RAISE) && !TEST(axis_known_position, Z_AXIS)
         ? 0
         : (parser.seenval('R') ? parser.value_linear_units() : Z_HOMING_HEIGHT);
 
     if (z_homing_height && (doX || doY || (ENABLED(Z_SAFE_HOMING) && doZ))) {
       // Raise Z before homing any other axes and z is not already high enough (never lower z)
       if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPAIR("Raise Z (before homing) by ", z_homing_height);
-      do_z_clearance(z_homing_height, TEST(axis_known_position, Z_AXIS), DISABLED(UNKNOWN_Z_NO_RAISE));
+      do_z_clearance(z_homing_height, true, DISABLED(UNKNOWN_Z_NO_RAISE));
     }
 
     #if ENABLED(QUICK_HOME)
