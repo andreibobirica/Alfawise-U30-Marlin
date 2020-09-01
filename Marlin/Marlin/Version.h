@@ -29,10 +29,10 @@
  * Marlin release version identifier
  */
 #if ENABLED(RELAYMULTIE)
-    #define SHORT_BUILD_VERSION "2.0.6.DUAL"
+    #define SHORT_BUILD_VERSION "2.0.6.1.DUAL"
 #endif
 #if DISABLED(RELAYMULTIE)
-    #define SHORT_BUILD_VERSION "2.0.6"
+    #define SHORT_BUILD_VERSION "2.0.6.1"
 #endif
 
 /**
@@ -51,7 +51,7 @@
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-#define MACHINE_NAME "Alfawise U30"
+#define MACHINE_NAME CUSTOM_MACHINE_NAME
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source

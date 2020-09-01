@@ -28,7 +28,7 @@
 
 #if ENABLED(LCD_BED_LEVELING)
 
-#include "menu.h"
+#include "menu_item.h"
 #include "../../module/planner.h"
 #include "../../feature/bedlevel/bedlevel.h"
 
@@ -160,10 +160,11 @@
   //
   void _lcd_level_bed_homing_done() {
     if (ui.should_draw()) MenuItem_static::draw(1, GET_TEXT(MSG_LEVEL_BED_WAITING));
-    if (ui.use_click()) {
+    /*if (ui.use_click()) {
       manual_probe_index = 0;
       _lcd_level_goto_next_point();
-    }
+    }*/
+    _lcd_level_goto_next_point();
   }
 
   //

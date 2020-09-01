@@ -286,14 +286,15 @@
   #define DELAYED_BACKLIGHT_INIT
 #endif
 
-// FSMC/SPI TFT Panels (HAL STM32)
-#if EITHER(TFT_320x240, TFT_480x320)
+// FSMC/SPI TFT Panels using standard HAL/tft/tft_(fsmc|spi).h
+#if ANY(TFT_320x240, TFT_480x320, TFT_LVGL_UI_FSMC, FSMC_GRAPHICAL_TFT)
   #define HAS_FSMC_TFT 1
-#elif EITHER(TFT_320x240_SPI, TFT_480x320_SPI)
+#elif ANY(TFT_320x240_SPI, TFT_480x320_SPI, TFT_LVGL_UI_SPI, SPI_GRAPHICAL_TFT)
   #define HAS_SPI_TFT 1
 #endif
 
-#if HAS_FSMC_TFT || HAS_SPI_TFT
+// Color UI
+#if ANY(TFT_320x240, TFT_480x320, TFT_320x240_SPI, TFT_480x320_SPI)
   #define HAS_GRAPHICAL_TFT 1
   #define IS_ULTIPANEL
 #endif
@@ -511,7 +512,7 @@
   #undef DISABLE_INACTIVE_EXTRUDER
 #endif
 
-// Prusa MK2 Multiplexer and MMU 2.0 force SINGLENOZZLE
+// Průša MK2 Multiplexer and MMU 2.0 force SINGLENOZZLE
 #if EITHER(MK2_MULTIPLEXER, PRUSA_MMU2)
   #define SINGLENOZZLE
 #endif
@@ -780,9 +781,7 @@
   #define EXTRUDE_MINTEMP 170
 #endif
 
-/**
- * To check if we need the folder src/features/leds
- */
-#if ANY(TEMP_STAT_LEDS, HAS_COLOR_LEDS, HAS_CASE_LIGHT, PRINTER_EVENT_LEDS, LED_BACKLIGHT_TIMEOUT, PCA9632_BUZZER, LED_CONTROL_MENU, NEOPIXEL_LED)
-  #define HAS_LED_FEATURE 1
+// This flag indicates if Neopixel pins are shared or separated
+#if EITHER(MULTIPLE_NEOPIXEL_TYPES, NEOPIXEL2_INSERIES)
+  #define CONJOINED_NEOPIXEL 1
 #endif
